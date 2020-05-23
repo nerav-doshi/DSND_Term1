@@ -1,16 +1,16 @@
 # Import Libraries
+import json
 
+import PIL
 import torch
 import numpy as np
-from torch import nn
-from torch import optim
-import torch.nn.functional as F
-from torchvision import datasets, transforms, models
+from torchvision import models
 import argparse
-import collections
 from PIL import Image
 
 # Function arg_parser() parses keyword arguments from the command line
+from train import check_gpu
+
 
 def arg_parser():
     parser = argparse.ArgumentParser(description="Neural Network Settings")
@@ -29,12 +29,12 @@ def arg_parser():
     
     # Specify top-k
     parser.add_argument('--top_k', 
-                        type=int, 
+                        type=int, default = 5,
                         help='Choose top K matches as int.')
     
     # Import category names
     parser.add_argument('--category_names', 
-                        type=str, 
+                        type=str, default='cat_to_name.json',
                         help='Mapping from categories to real names.')
 
     # Add GPU Option to parser
@@ -49,7 +49,7 @@ def arg_parser():
 
 
 # Function load_checkpoint
-def load_checkpoint(checkpoint_path):
+def load_checkpoint(checkpoint_path, model=None):
     # Load the saved file
     checkpoint = torch.load("my_checkpoint.pth")
     
@@ -174,14 +174,14 @@ def predict(image_tensor, model, device, cat_to_name, top_k):
 def print_probability(probs, flowers):
     for i, j in enumerate(zip(flowers, probs)):
         print ("Rank {}:".format(i+1),
-               "Flower: {}, liklihood: {}%".format(j[1], ceil(j[0]*100)))
+               "Flower: {}, liklihood: {}%".format(j[1], np.ceil(j[0] * 100)))
         
 def main():
     
     args = arg_parser()
     
     with open(args.category_names, 'r') as f:
-        	cat_to_name = json.load(f)
+        cat_to_name = json.load(f)
 
     model = load_checkpoint(args.checkpoint)
     

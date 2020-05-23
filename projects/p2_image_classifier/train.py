@@ -6,6 +6,7 @@ from torch import optim
 from torchvision import datasets, transforms, models
 import argparse
 import collections
+from os.path import isdir
 
 # Function arg_parser() parses keyword arguments from the command line
 def arg_parser():
@@ -109,7 +110,7 @@ def check_gpu(gpu_arg):
 
 
 # primaryloader_model(architecture="vgg16") downloads model (primary) from torchvision
-def primaryloader_model(architecture="vgg16"):
+def primaryloader_model(architecture="vgg16", model=None):
     # Load Defaults if none specified
     if type(architecture) == type(None):
         model = models.vgg16(pretrained=True)
@@ -171,12 +172,11 @@ def validation(model, testloader, criterion, device):
 
 """Training of the network model"""
 
-
 def network_trainer(model, trainloader, testloader, validloader,device,
                     criterion, optimizer, epochs, print_every, steps):
     # Check Model Kwarg
     if type(epochs) == type(None):
-        epochs = 2
+        epochs = 5
         print("Number of Epochs specificed as 5.")
 
     print("Training process initializing .....\n")
@@ -227,11 +227,11 @@ def validate_model(model, testloader, device):
     correct = 0
     total = 0
     with torch.no_grad():
-        Model.eval()
+        model.eval()
         for data in testloader:
             images, labels = data
             images, labels = images.to(device), labels.to(device)
-            outputs = Model(images)
+            outputs = model(images)
             _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
             correct += (predicted == labels).sum().item()

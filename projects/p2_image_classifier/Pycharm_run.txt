@@ -1,0 +1,111 @@
+
+(venv) nerav@Nerav tensorflow % python train.py --sav_dir '/Users/nerav/venv'
+usage: train.py [-h] [--arch ARCH] [--save_dir SAVE_DIR]
+                [--learning_rate LEARNING_RATE] [--hidden_units HIDDEN_UNITS]
+                [--epochs EPOCHS] [--gpu]
+train.py: error: unrecognized arguments: --sav_dir /Users/nerav/venv
+(venv) nerav@Nerav tensorflow % python train.py --save_dir
+usage: train.py [-h] [--arch ARCH] [--save_dir SAVE_DIR]
+                [--learning_rate LEARNING_RATE] [--hidden_units HIDDEN_UNITS]
+                [--epochs EPOCHS] [--gpu]
+train.py: error: argument --save_dir: expected one argument
+(venv) nerav@Nerav tensorflow % python train.py --save_dir '/Users/nerav'
+Network architecture specified as vgg16.
+Number of Hidden Layers specificed as 4096.
+Learning rate specificed as 0.001
+Number of Epochs specificed as 2.
+Training process initializing .....
+
+Epoch: 1/1 |  Training Loss: 4.6900 |  Validation Loss: 3.5404 |  Validation Accuracy: 0.2495
+Epoch: 1/1 |  Training Loss: 3.5435 |  Validation Loss: 2.3977 |  Validation Accuracy: 0.4237
+Epoch: 1/1 |  Training Loss: 2.7754 |  Validation Loss: 1.7117 |  Validation Accuracy: 0.5802
+
+Training process is now complete!!
+Accuracy achieved by the network on test images is: 55%
+(venv) nerav@Nerav tensorflow % pwd
+/Users/nerav/PycharmProjects/tensorflow
+(venv) nerav@Nerav tensorflow % python predict.py --image 'flowers/test/1/image_06743.jpg' --checkpoint '/Users/nerav/PycharmProjects/tensorflow'
+Traceback (most recent call last):
+  File "predict.py", line 196, in <module>
+    if __name__ == '__main__': main()
+  File "predict.py", line 183, in main
+    with open(args.category_names, 'r') as f:
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+(venv) nerav@Nerav tensorflow % python predict.py --image 'flowers/test/1/image_06743.jpg' --checkpoint '/Users/nerav/PycharmProjects/tensorflow/my_checkpoint.pth'
+Traceback (most recent call last):
+  File "predict.py", line 196, in <module>
+    if __name__ == '__main__': main()
+  File "predict.py", line 183, in main
+    with open(args.category_names, 'r') as f:
+TypeError: expected str, bytes or os.PathLike object, not NoneType
+(venv) nerav@Nerav tensorflow % python predict.py --image 'flowers/test/1/image_06743.jpg' --checkpoint '/Users/nerav/PycharmProjects/tensorflow/my_checkpoint.pth'
+Traceback (most recent call last):
+  File "predict.py", line 196, in <module>
+    if __name__ == '__main__': main()
+  File "predict.py", line 192, in main
+    top_probs, top_labels, top_flowers = predict(image_tensor, model,device, cat_to_name,args.top_k)
+  File "predict.py", line 159, in predict
+    top_probs, top_labels = linear_probs.topk(top_k)
+TypeError: topk(): argument 'k' (position 1) must be int, not float
+(venv) nerav@Nerav tensorflow % python predict.py --image 'flowers/test/1/image_06743.jpg' --checkpoint '/Users/nerav/PycharmProjects/tensorflow/my_checkpoint.pth'
+Traceback (most recent call last):
+  File "predict.py", line 196, in <module>
+    if __name__ == '__main__': main()
+  File "predict.py", line 194, in main
+    print_probability(top_flowers, top_probs)
+  File "predict.py", line 177, in print_probability
+    "Flower: {}, liklihood: {}%".format(j[1], torch.ceil(j[0] * 100)))
+TypeError: ceil(): argument 'input' (position 1) must be Tensor, not numpy.float64
+(venv) nerav@Nerav tensorflow % python predict.py --image 'flowers/test/1/image_06743.jpg' --checkpoint '/Users/nerav/PycharmProjects/tensorflow/my_checkpoint.pth'
+Rank 1: Flower: hibiscus, liklihood: 39.0%
+Rank 2: Flower: morning glory, liklihood: 28.0%
+Rank 3: Flower: tree mallow, liklihood: 9.0%
+Rank 4: Flower: pink primrose, liklihood: 5.0%
+Rank 5: Flower: petunia, liklihood: 4.0%
+(venv) nerav@Nerav tensorflow % python train.py --save_dir '/Users/nerav'
+Network architecture specified as vgg16.
+Number of Hidden Layers specificed as 4096.
+Learning rate specificed as 0.001
+Number of Epochs specificed as 5.
+Training process initializing .....
+
+Epoch: 1/1 |  Training Loss: 4.5632 |  Validation Loss: 3.4722 |  Validation Accuracy: 0.2137
+Epoch: 1/1 |  Training Loss: 3.4643 |  Validation Loss: 2.3680 |  Validation Accuracy: 0.4031
+Epoch: 1/1 |  Training Loss: 2.8931 |  Validation Loss: 1.7461 |  Validation Accuracy: 0.5475
+
+Training process is now complete!!
+Accuracy achieved by the network on test images is: 54%
+(venv) nerav@Nerav tensorflow % python train.py --save_dir '/Users/nerav'
+Network architecture specified as vgg16.
+Number of Hidden Layers specificed as 4096.
+Learning rate specificed as 0.001
+Number of Epochs specificed as 5.
+Training process initializing .....
+
+Epoch: 1/5 |  Training Loss: 4.6002 |  Validation Loss: 3.5517 |  Validation Accuracy: 0.2483
+Epoch: 1/5 |  Training Loss: 3.4614 |  Validation Loss: 2.4115 |  Validation Accuracy: 0.4068
+Epoch: 1/5 |  Training Loss: 2.8165 |  Validation Loss: 1.6881 |  Validation Accuracy: 0.5760
+Epoch: 2/5 |  Training Loss: 1.3512 |  Validation Loss: 1.4561 |  Validation Accuracy: 0.6276
+Epoch: 2/5 |  Training Loss: 2.1637 |  Validation Loss: 1.2049 |  Validation Accuracy: 0.6690
+Epoch: 2/5 |  Training Loss: 1.9825 |  Validation Loss: 1.0708 |  Validation Accuracy: 0.7086
+Epoch: 3/5 |  Training Loss: 0.2825 |  Validation Loss: 0.9585 |  Validation Accuracy: 0.7430
+Epoch: 3/5 |  Training Loss: 1.8074 |  Validation Loss: 0.9323 |  Validation Accuracy: 0.7507
+Epoch: 3/5 |  Training Loss: 1.7429 |  Validation Loss: 0.8451 |  Validation Accuracy: 0.7589
+Epoch: 3/5 |  Training Loss: 1.7448 |  Validation Loss: 0.8170 |  Validation Accuracy: 0.7807
+Epoch: 4/5 |  Training Loss: 1.1086 |  Validation Loss: 0.7448 |  Validation Accuracy: 0.7985
+Epoch: 4/5 |  Training Loss: 1.6467 |  Validation Loss: 0.7922 |  Validation Accuracy: 0.7839
+Epoch: 4/5 |  Training Loss: 1.6477 |  Validation Loss: 0.7576 |  Validation Accuracy: 0.7904
+Epoch: 5/5 |  Training Loss: 0.4141 |  Validation Loss: 0.7050 |  Validation Accuracy: 0.8083
+Epoch: 5/5 |  Training Loss: 1.5806 |  Validation Loss: 0.7366 |  Validation Accuracy: 0.8051
+Epoch: 5/5 |  Training Loss: 1.5731 |  Validation Loss: 0.6189 |  Validation Accuracy: 0.8342
+Epoch: 5/5 |  Training Loss: 1.5318 |  Validation Loss: 0.7158 |  Validation Accuracy: 0.8175
+
+Training process is now complete!!
+Accuracy achieved by the network on test images is: 78%
+(venv) nerav@Nerav tensorflow % python predict.py --image 'flowers/test/1/image_06743.jpg' --checkpoint '/Users/nerav/PycharmProjects/tensorflow/my_checkpoint.pth'
+Rank 1: Flower: hibiscus, liklihood: 66.0%
+Rank 2: Flower: tree mallow, liklihood: 18.0%
+Rank 3: Flower: pink primrose, liklihood: 13.0%
+Rank 4: Flower: petunia, liklihood: 3.0%
+Rank 5: Flower: balloon flower, liklihood: 1.0%
+(venv) nerav@Nerav tensorflow %
